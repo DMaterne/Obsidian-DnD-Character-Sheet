@@ -2,6 +2,10 @@
 
 
 
+https://github.com/user-attachments/assets/62d5089e-1a2f-4498-be6c-3e6e6df5540b
+
+
+
 Maybe I will find the motivation and time to write a textual tutorial but for now there will only be the video.
 
 If you are a D&D player or DM using obsidian, you should check out my other project. This one I well documented: https://github.com/DMaterne/obsidian_account_manager
