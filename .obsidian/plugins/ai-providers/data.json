@@ -1,0 +1,18 @@
+{
+  "_version": 1,
+  "debugLogging": false,
+  "useNativeFetch": false,
+  "providers": [
+    {
+      "id": "id-1753277394502",
+      "name": "Ollama Mistral",
+      "apiKey": "",
+      "url": "http://localhost:11434",
+      "type": "ollama",
+      "model": "mistral:latest",
+      "availableModels": [
+        "mistral:latest"
+      ]
+    }
+  ]
+}

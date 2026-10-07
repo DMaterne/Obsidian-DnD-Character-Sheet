@@ -1,0 +1,11 @@
+{
+  "local-gpt:context-menu": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "1"
+    }
+  ]
+}

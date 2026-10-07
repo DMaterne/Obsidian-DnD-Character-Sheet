@@ -1,0 +1,659 @@
+{
+  "mapMarkers": [
+    {
+      "id": "MainKontinent",
+      "lastAccessed": 1766448510977,
+      "markers": [
+        {
+          "id": "ID_a988291b180a",
+          "type": "Hauptstadt",
+          "loc": [
+            800.6875,
+            697.5
+          ],
+          "link": "Du'ul Fus Bornah",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_aa48da780af8",
+          "type": "Gebirge",
+          "loc": [
+            734.6875,
+            669.5
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_b8da2b99180b",
+          "type": "Gebirge",
+          "loc": [
+            717.6875,
+            751.5
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_8898c83a2858",
+          "type": "Gebirge",
+          "loc": [
+            805.6875,
+            756.5
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_986abada6bf8",
+          "type": "Stadt",
+          "loc": [
+            350,
+            616
+          ],
+          "link": "Dilos Feykar",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            0.6015625,
+            -0.22786458333333334
+          ],
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_c96a4a786ae9",
+          "type": "Wald",
+          "loc": [
+            310.6875,
+            687.5
+          ],
+          "link": "Südöstliche Wälder#**Mischwald:**|Südöstlicher Mischwald",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_ba48a8f9b958",
+          "type": "Wald",
+          "loc": [
+            321.9987504828241,
+            779.938779648762
+          ],
+          "link": "Südöstliche Wälder#**Dschungel:**|Südöstlicher Dschungel",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_db88691929da",
+          "type": "Quest",
+          "loc": [
+            340,
+            622.5
+          ],
+          "link": "Quest - Expedition zur Erschließung der südöstlichen Wälder",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            0.60791015625,
+            -0.22135416666666666
+          ],
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_fafaea99d9c8",
+          "type": "Dorf",
+          "loc": [
+            569.4861238981158,
+            679.5296167202722
+          ],
+          "link": "Alok-Dilon",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_bbb838cb4909",
+          "type": "Dorf",
+          "loc": [
+            630.2973070801588,
+            468.81179592668104
+          ],
+          "link": "Ahrol Mir",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_69ca9b78ca08",
+          "type": "Turm",
+          "loc": [
+            734.9491106957679,
+            246.78026663410512
+          ],
+          "link": "Turm auf Insel",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_5bab88da1b38",
+          "type": "Stadt",
+          "loc": [
+            768.8902361927222,
+            142.12846301849606
+          ],
+          "link": "Goblinstan",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_db58789bd9f8",
+          "type": "Stadt",
+          "loc": [
+            1033.348172356491,
+            801.1519830843584
+          ],
+          "link": "Brii Foraam",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_4a4aab49499b",
+          "type": "Gebirge",
+          "loc": [
+            483.21909659335694,
+            457.4980874276963
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_884b18f969fb",
+          "type": "Gebirge",
+          "loc": [
+            493.1185915299686,
+            402.34375849514555
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_d9eaa80a4bdb",
+          "type": "Gebirge",
+          "loc": [
+            464.8343202825067,
+            506.99556211075463
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": null,
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_0829887b6a9a",
+          "type": "Ruine",
+          "loc": [
+            349,
+            784
+          ],
+          "link": "Pyramidenstruktur",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            0.765625,
+            -0.22721354166666666
+          ],
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_19a91819abeb",
+          "type": "Event",
+          "loc": [
+            334.5,
+            798.5
+          ],
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            0.77978515625,
+            -0.2177734375
+          ],
+          "description": "Erster Tod",
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_e8b9a8d8585a",
+          "type": "Turm",
+          "loc": [
+            342,
+            792
+          ],
+          "link": "Turm im Pilzwald",
+          "layer": "%5B%5BMainKontinent.png%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            0.7734375,
+            -0.22265625
+          ],
+          "description": null,
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        }
+      ],
+      "overlays": [],
+      "shapes": [],
+      "files": [
+        "Public/Maps/Bron Muz.md"
+      ]
+    },
+    {
+      "id": "map69",
+      "lastAccessed": 1775243706610,
+      "markers": [
+        {
+          "id": "ID_7a18f9ebb90b",
+          "type": "Gegner",
+          "loc": [
+            739,
+            580.9998106777736
+          ],
+          "layer": "%5B%5Bmap69.jpg%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            1.1237907363206452,
+            -0.8050108932461874
+          ],
+          "description": "Arsch",
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        },
+        {
+          "id": "ID_69d88afb2a09",
+          "type": "Gegner",
+          "loc": [
+            732.5,
+            281.4994320333207
+          ],
+          "layer": "%5B%5Bmap69.jpg%5D%5D",
+          "mutable": true,
+          "command": false,
+          "percent": [
+            0.5444863288845662,
+            -0.7979302832244008
+          ],
+          "description": "Titten",
+          "minZoom": null,
+          "maxZoom": null,
+          "tooltip": "hover"
+        }
+      ],
+      "overlays": [],
+      "shapes": [],
+      "files": [
+        "Public/Tjubi im Dildoland/Geographie/Maps/Map Template sobal wir eine haben.md"
+      ]
+    }
+  ],
+  "defaultMarker": {
+    "type": "default",
+    "iconName": "map-marker",
+    "color": "#dddddd",
+    "transform": {
+      "size": 6,
+      "x": 0,
+      "y": -2
+    }
+  },
+  "markerIcons": [
+    {
+      "type": "Hauptstadt",
+      "iconName": "crown",
+      "color": "#b51212",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Stadt",
+      "iconName": "city",
+      "color": "#ff7024",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Dorf",
+      "iconName": "house-user",
+      "color": "#e0b000",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Wald",
+      "iconName": "tree",
+      "color": "#14c237",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Ruine",
+      "iconName": "house-damage",
+      "color": "#504e4e",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Gewässer",
+      "iconName": "water",
+      "color": "#283ac3",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Gebirge",
+      "iconName": "mountain",
+      "color": "#878787",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Turm",
+      "iconName": "chess-rook",
+      "color": "#48f9e5",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Gegner",
+      "iconName": "skull",
+      "color": "#dddddd",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Quest",
+      "iconName": "question",
+      "color": "#9efe3e",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    },
+    {
+      "type": "Event",
+      "iconName": "flag",
+      "color": "#8400a8",
+      "alpha": 1,
+      "layer": true,
+      "transform": {
+        "size": 6,
+        "x": 0,
+        "y": -2
+      },
+      "isImage": false,
+      "tags": [],
+      "minZoom": null,
+      "maxZoom": null
+    }
+  ],
+  "color": "#dddddd",
+  "lat": 39.983334,
+  "long": -82.98333,
+  "notePreview": false,
+  "layerMarkers": true,
+  "previousVersion": "6.0.5",
+  "version": {
+    "major": 6,
+    "minor": 0,
+    "patch": 5
+  },
+  "warnedAboutMapMarker": false,
+  "copyOnClick": false,
+  "displayMarkerTooltips": "hover",
+  "displayOverlayTooltips": true,
+  "configDirectory": null,
+  "mapViewEnabled": true,
+  "mapViewParameters": {
+    "darkMode": "false",
+    "defaultZoom": -1,
+    "distanceMultiplier": 1,
+    "drawColor": "#3388ff",
+    "geojson": [],
+    "geojsonColor": "#3388ff",
+    "gpx": [],
+    "gpxColor": "#3388ff",
+    "height": "850px",
+    "image": "[[MainKontinent.png]]",
+    "imageOverlay": [],
+    "isMapView": false,
+    "layers": [
+      "[[MainKontinent.png]]"
+    ],
+    "linksFrom": [],
+    "linksTo": [],
+    "marker": [],
+    "commandMarker": [],
+    "markerFile": [],
+    "markerFolder": [],
+    "markerTag": [],
+    "maxZoom": 1,
+    "minZoom": -1,
+    "osmLayer": true,
+    "overlay": [],
+    "overlayColor": "blue",
+    "scale": 0.09328358208955223,
+    "showAllMarkers": false,
+    "tileServer": [],
+    "verbose": false,
+    "zoomDelta": 0.5,
+    "zoomFeatures": false,
+    "id": "MainKontinent",
+    "bounds": [
+      [
+        0,
+        0
+      ],
+      [
+        1536,
+        1024
+      ]
+    ],
+    "width": "95%",
+    "lat": 768,
+    "long": 512,
+    "unit": "mi",
+    "recenter": false,
+    "darkmode": false,
+    "filterTag": []
+  },
+  "enableDraw": true,
+  "defaultUnitType": "imperial",
+  "defaultTile": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
+  "defaultTileDark": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
+  "defaultAttribution": "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>",
+  "defaultTileSubdomains": "a,b,c,d"
+}

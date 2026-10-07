@@ -1,0 +1,321 @@
+{
+  "main": {
+    "id": "19267d10fed0b956",
+    "type": "split",
+    "children": [
+      {
+        "id": "43c8f9128ce55404",
+        "type": "tabs",
+        "dimension": 50,
+        "children": [
+          {
+            "id": "fc3f397eba77a435",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Public/3 Backend/Character Builder.md",
+                "mode": "preview",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "Character Builder"
+            }
+          },
+          {
+            "id": "82fd2ffad9cc0d9d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Public/2 Templates/City Template.md",
+                "mode": "preview",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "City Template"
+            }
+          },
+          {
+            "id": "285d6884bff8dfeb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Public/3 Backend/Features/Perfected Armor.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "Perfected Armor"
+            }
+          },
+          {
+            "id": "32e117fc161df4ba",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Public/3 Backend/Spells/Acid Splash.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "Acid Splash"
+            }
+          }
+        ],
+        "currentTab": 1
+      },
+      {
+        "id": "a2499dee31a1947d",
+        "type": "tabs",
+        "dimension": 50,
+        "children": [
+          {
+            "id": "daa4d0f04ab9f1d8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Public/3 Backend/Spells/Cure Wounds.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "Cure Wounds"
+            }
+          },
+          {
+            "id": "19898e9c2ff5fce9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Public/3 Backend/Spells/Web.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "Web"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a601c5e1e3e34414",
+    "type": "split",
+    "children": [
+      {
+        "id": "db59939a314b2304",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b365a7f050b1dc0f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "d823b375229c1e19",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "87b0ac78358d9075",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b6054cb3fb603678",
+    "type": "split",
+    "children": [
+      {
+        "id": "ef622065b100210c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5615dee0341db8c0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Public/3 Backend/Sheet b.2.0.0 (Bugs included).md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Sheet b.2.0.0 (Bugs included)"
+            }
+          },
+          {
+            "id": "5dedd2be362340ef",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Public/Gruppierungen/Haus Aegis.md",
+                "linksCollapsed": true,
+                "unlinkedCollapsed": false
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Haus Aegis"
+            }
+          },
+          {
+            "id": "2bbcae931a3d76e1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "01b6774aed766b79",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          },
+          {
+            "id": "b38a75d92ba8e54f",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 206.5,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-git:Open Git source control": false,
+      "obsidian-leaflet-plugin:Open Leaflet Map": false,
+      "obsidian-kanban:Create new board": false,
+      "obsidian-excalidraw-plugin:New drawing": false
+    }
+  },
+  "active": "82fd2ffad9cc0d9d",
+  "lastOpenFiles": [
+    "Public/3 Backend/Sheet b.2.0.0 (Bugs included).md",
+    "Public/3 Backend/Features/Perfected Armor.md",
+    "Public/3 Backend/Species/Drow.md",
+    "Public/3 Backend/Spells/Web.md",
+    "Public/3 Backend/Spells/Water Walk.md",
+    "Public/3 Backend/Spells/Cure Wounds.md",
+    "Public/3 Backend/Spells/Water Breathing.md",
+    "Public/3 Backend/Spells/Wall of Stone.md",
+    "Public/3 Backend/Spells/Transmute Rock.md",
+    "Public/3 Backend/Spells/Tiny Servant.md",
+    "Public/3 Backend/Spells/Thunderclap.md",
+    "Public/3 Backend/Spells/Thorn Whip.md",
+    "Public/3 Backend/Spells/Tasha's Caustic Brew.md",
+    "Public/3 Backend/Spells/Sword Burst.md",
+    "Public/3 Backend/Character Builder.md",
+    "Public/3 Backend/Spells/Summon Construct.md",
+    "Public/3 Backend/Spells/Stoneskin.md",
+    "Public/3 Backend/Spells/Stone Shape.md",
+    "Public/3 Backend/Spells/Spider Climb.md",
+    "Public/3 Backend/Spells/Spare the Dying.md",
+    "Public/3 Backend/Spells/Snare.md",
+    "Public/3 Backend/Spells/Skywrite.md",
+    "Public/3 Backend/Spells/Skill Empowerment.md",
+    "Public/3 Backend/Spells/Shocking Grasp.md",
+    "Public/3 Backend/Spells/Shatter.md",
+    "Public/3 Backend/Spells/Acid Splash.md",
+    "Public/1 Assets/Bilder/EIMER.png",
+    "Public/3 Backend/Backgrounds",
+    "Public/3 Backend/Species",
+    "Public/3 Backend/Characters",
+    "Public/3 Backend/Feats",
+    "Public/3 Backend/Subclasses",
+    "Public/2 Templates/Subclasses",
+    "Public/3 Backend/Classes",
+    "Public/3 Backend/obsidian_character_sheet_class_system.txt",
+    "Public/1 Assets/Bilder/map69.jpg",
+    "Public/1 Assets/Bilder/Eimer Full.png",
+    "Public/3 Backend/Features",
+    "Public/3 Backend/Spells",
+    "Public/1 Assets/Bilder/wappen.png",
+    "Public/1 Assets/Bilder/NPC und Monster/NPC_Placeholder.png",
+    "Public/1 Assets/Bilder/fredrick.png",
+    "Public/1 Assets/Bilder/erek.png",
+    "Public/1 Assets/Bilder/NPC und Monster/CastorArmor.png",
+    "Public/1 Assets/Bilder/NPC und Monster/GustavEF.png",
+    "Public/1 Assets/Bilder/NPC und Monster/Berliath.jpg",
+    "Public/Bönkis Kampagne/Quests/Expedition.canvas",
+    "Public/Bönkis Kampagne/Quests/Mindmap Expedition.canvas",
+    "Untitled.canvas",
+    "Public/Untitled.canvas"
+  ]
+}

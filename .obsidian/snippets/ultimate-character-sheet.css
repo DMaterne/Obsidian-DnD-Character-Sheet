@@ -1,0 +1,140 @@
+/* =========================================================
+   Ultimate Character Sheet Template — V2
+   ========================================================= */
+
+.ultimate-character-sheet {
+  --ucs-bg: var(--background-primary);
+  --ucs-bg-soft: var(--background-secondary);
+  --ucs-bg-softer: color-mix(in srgb, var(--background-secondary) 70%, transparent);
+  --ucs-border: var(--background-modifier-border);
+  --ucs-border-strong: color-mix(in srgb, var(--background-modifier-border) 70%, white 10%);
+  --ucs-accent: #5aa9ff;
+  --ucs-accent-2: #8b5cf6;
+  --ucs-accent-3: #eab308;
+  --ucs-text-soft: var(--text-muted);
+  --ucs-text-strong: var(--text-normal);
+  --ucs-good: #22c55e;
+  --ucs-bad: #ef4444;
+  --ucs-card-radius: 18px;
+  --ucs-card-radius-small: 12px;
+  --ucs-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+  --ucs-shadow-soft: 0 6px 14px rgba(0, 0, 0, 0.12);
+  --ucs-panel-pad: 16px;
+}
+
+.ultimate-character-sheet .markdown-preview-view,
+.ultimate-character-sheet.markdown-preview-view {
+  padding: 1.6rem;
+  background:
+    radial-gradient(circle at top right, rgba(90, 169, 255, 0.10), transparent 22%),
+    radial-gradient(circle at top left, rgba(139, 92, 246, 0.08), transparent 18%),
+    linear-gradient(180deg, transparent, rgba(255,255,255,0.01));
+}
+
+.ultimate-character-sheet h1 {
+  font-size: 2.35rem;
+  font-weight: 850;
+  letter-spacing: 0.015em;
+  margin: 0 0 0.75rem 0;
+  padding: 0 0 0.6rem 0;
+  border-bottom: 2px solid var(--ucs-border);
+  position: relative;
+}
+
+.ultimate-character-sheet h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ucs-accent), var(--ucs-accent-2));
+  border-radius: 999px;
+}
+
+.ultimate-character-sheet h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.9rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--ucs-accent) 18%, var(--ucs-border));
+  border-left: 5px solid var(--ucs-accent);
+  border-radius: 14px;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ucs-accent) 12%, transparent),
+      color-mix(in srgb, var(--ucs-accent-2) 6%, transparent)
+    );
+  box-shadow: var(--ucs-shadow-soft);
+  font-size: 1.18rem;
+  font-weight: 780;
+}
+
+.ultimate-character-sheet table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0.9rem 0 1.3rem 0;
+  border: 1px solid var(--ucs-border-strong);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--ucs-shadow);
+  background: color-mix(in srgb, var(--background-primary) 90%, transparent);
+}
+
+.ultimate-character-sheet table thead tr {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ucs-accent) 20%, var(--background-secondary)),
+      color-mix(in srgb, var(--ucs-accent-2) 16%, var(--background-secondary))
+    );
+}
+
+.ultimate-character-sheet table th {
+  padding: 0.9rem 0.8rem;
+  font-weight: 760;
+  color: var(--ucs-text-strong);
+  border-bottom: 1px solid var(--ucs-border);
+  text-align: left;
+}
+
+.ultimate-character-sheet table td {
+  padding: 0.78rem 0.8rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ucs-border) 72%, transparent);
+}
+
+.ultimate-character-sheet table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ultimate-character-sheet table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--background-secondary) 58%, transparent);
+}
+
+.ultimate-character-sheet table tbody tr:hover {
+  background: color-mix(in srgb, var(--ucs-accent) 10%, var(--background-secondary));
+}
+
+.ultimate-character-sheet a {
+  color: var(--ucs-accent);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.ultimate-character-sheet a:hover {
+  text-decoration: underline;
+}
+
+.ultimate-character-sheet .callout {
+  border: 1px solid var(--ucs-border);
+  border-radius: var(--ucs-card-radius);
+  box-shadow: var(--ucs-shadow);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--background-secondary) 75%, transparent);
+}
+
+.theme-dark .ultimate-character-sheet {
+  --ucs-shadow: 0 14px 30px rgba(0, 0, 0, 0.30);
+  --ucs-shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
