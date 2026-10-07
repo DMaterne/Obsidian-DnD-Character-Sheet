@@ -22,6 +22,8 @@ For a better editing experience and improved UI, the **Editor with Slider** Comm
 
 It is **not required** for the character sheet to function.
 
+I use a width of 69 (not because it's a funny number, it just fits the best... ok it is a funny number)
+
 ---
 
 ## Getting Started
