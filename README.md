@@ -131,8 +131,8 @@ The included **EIMER** character can be used as an example when creating your ow
 
 ## Conclusion
 
-If you have any feedback just let me know. I am doing this for fun and use the sheet myself.
+If you have any feedback or a feature you want just let me know. I am doing this for fun and use the sheet myself.
 
 If you are a D&D player or DM using obsidian, you should check out my other project: https://github.com/DMaterne/obsidian_account_manager
 
-I am a coffeine addict, if you liked my project and want to show a bit of appreciation, I won't mind: buymeacoffee.com/DMaterne
+I am a coffeine addict, if you liked my project and want to show a bit of appreciation I won't mind: buymeacoffee.com/DMaterne
