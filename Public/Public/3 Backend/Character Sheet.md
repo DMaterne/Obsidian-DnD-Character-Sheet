@@ -191,11 +191,11 @@ function getFormulaContext() {
   };
 }
 
-function evaluateBonusFormula(formula) {
+function evaluateBonusFormula(formula, contextOverride = null) {
   const expr = String(formula ?? "").trim();
   if (!expr) return null;
 
-  const ctx = getFormulaContext();
+  const ctx = contextOverride ?? getFormulaContext();
   let safeExpr = expr;
 
   const replacements = [
@@ -600,6 +600,36 @@ function hasFeatProficiency(category, value) {
     .includes(String(value ?? "").trim().toLowerCase());
 }
 
+
+// A shield is not armor for the Unarmored Defense condition.
+function characterIsWearingArmor() {
+  for (const entry of (Array.isArray(c.inventory) ? c.inventory : [])) {
+    if (entry?.equipped !== true) continue;
+    const page = resolvePageRef(entry.item, ITEMS_FOLDER);
+    if (!page) continue;
+    const tokens = [page.type, page.category, page.armor_type, page.armor_category,
+                    page.item_type, page.equipment_category, page.subtype]
+      .map(x => String(x ?? "").toLowerCase().replace(/[_-]/g, " "));
+    const isShield = tokens.some(x => /\bshield\b/.test(x)) ||
+      /\bshield\b/i.test(String(page.name ?? page.file?.name ?? ""));
+    if (isShield) continue;
+    if (tokens.some(x => /\b(light armor|medium armor|heavy armor|armor)\b/.test(x))) return true;
+    // Explicit armor-class entries are also recognizable when type is unspecified.
+    if (page.armor_class != null || page.armor_base != null) return true;
+  }
+  return false;
+}
+function bonusConditionSatisfied(bonus, defaultWhen, sourceActive = true, equipped = false, attuned = false) {
+  const when = String(bonus?.active_when ?? defaultWhen).trim().toLowerCase();
+  if (when === "always") return sourceActive;
+  if (when === "enabled" || when === "selected") return sourceActive;
+  if (when === "equipped") return equipped;
+  if (when === "attuned") return attuned;
+  if (when === "unarmored") return sourceActive && !characterIsWearingArmor();
+  if (when === "armored") return sourceActive && characterIsWearingArmor();
+  return false;
+}
+
 function getActiveBonusEffects() {
   const activeEffects = [];
 
@@ -645,9 +675,7 @@ function getActiveBonusEffects() {
 
         let isActive = false;
 
-        if (activeWhen === "always") isActive = true;
-        if (activeWhen === "equipped" && equipped) isActive = true;
-        if (activeWhen === "attuned" && attuned) isActive = true;
+        isActive = bonusConditionSatisfied(bonus, "equipped", true, equipped, attuned);
 
         if (!isActive) continue;
 
@@ -656,6 +684,7 @@ function getActiveBonusEffects() {
           value: Number.isFinite(value) ? value : 0,
           set_value: hasSetValue && Number.isFinite(setValue) ? setValue : null,
           formula: formula || null,
+          calculation: String(bonus.calculation ?? "").trim().toLowerCase(),
           active_when: activeWhen,
           source_kind: "item",
           source_name: itemPage.name ?? itemPage.file?.name ?? "Unknown Item",
@@ -692,6 +721,7 @@ function getActiveBonusEffects() {
         value: Number.isFinite(value) ? value : 0,
         set_value: hasSetValue && Number.isFinite(setValue) ? setValue : null,
         formula: formula || null,
+        calculation: String(bonus.calculation ?? "").trim().toLowerCase(),
         active_when: "selected",
         source_kind: "species",
         source_name: speciesPage.name ?? speciesPage.file?.name ?? "Species",
@@ -721,9 +751,7 @@ function getActiveBonusEffects() {
       if (!type) continue;
       if (!Number.isFinite(value) && !(hasSetValue && Number.isFinite(setValue)) && !formula) continue;
 
-      const isActive =
-        activeWhen === "always" ||
-        ((activeWhen === "enabled" || activeWhen === "selected") && enabled);
+      const isActive = bonusConditionSatisfied(bonus, "enabled", enabled);
       if (!isActive) continue;
 
       activeEffects.push({
@@ -731,6 +759,7 @@ function getActiveBonusEffects() {
         value: Number.isFinite(value) ? value : 0,
         set_value: hasSetValue && Number.isFinite(setValue) ? setValue : null,
         formula: formula || null,
+        calculation: String(bonus.calculation ?? "").trim().toLowerCase(),
         active_when: activeWhen,
         source_kind: String(featurePage.type ?? "").toLowerCase() === "feat" ? "feat" : "feature",
         source_name: featurePage.name ?? featurePage.file?.name ?? "Unnamed Feature",
@@ -739,7 +768,7 @@ function getActiveBonusEffects() {
     }
 
     for (const bonus of scalingBonuses) {
-      if (!bonus || typeof bonus !== "object") continue;
+      if (!enabled || !bonus || typeof bonus !== "object") continue;
       const type = String(bonus.type ?? "").trim().toLowerCase();
       const formula = String(bonus.formula ?? "").trim();
       const value = Number(bonus.value ?? 0);
@@ -797,14 +826,26 @@ function applyItemEffects(baseValue, type) {
     .filter(b => b.set_value != null && Number.isFinite(Number(b.set_value)))
     .map(b => Number(b.set_value));
 
-  const formulaValues = matchingEffects
-    .filter(b => b.formula)
-    .map(b => evaluateBonusFormula(b.formula))
+  const baseFormulas = targetType === "ac"
+    ? matchingEffects.filter(b => b.calculation === "base" && b.formula)
+    : [];
+  // AC base alternatives use *final* ability modifiers, including ASI, species and items.
+  // For example: 10 + dex_mod + con_mod, optionally combined with shield bonuses.
+  const formulaContext = targetType === "ac" ? {
+    ...getFormulaContext(),
+    ...Object.fromEntries(["str","dex","con","int","wis","cha"].flatMap(k =>
+      [[k,getAbilityScore(k)],[`${k}_mod`,getAbilityModByName(k)]]))
+  } : null;
+  const evaluate = (formula) => evaluateBonusFormula(formula, formulaContext);
+  const baseCandidates = baseFormulas.map(b => evaluate(b.formula))
     .filter(v => v != null && Number.isFinite(v));
-
-  if (setValues.length > 0 || formulaValues.length > 0) {
-    const candidates = [...setValues, ...formulaValues];
-    result = Math.max(...candidates);
+  const normalFormulas = matchingEffects.filter(b => b.formula && b.calculation !== "base")
+    .map(b => evaluate(b.formula)).filter(v => v != null && Number.isFinite(v));
+  if (targetType === "ac" && baseCandidates.length) {
+    // A base formula replaces the stored raw AC when its condition is met.
+    result = Math.max(...baseCandidates);
+  } else if (setValues.length || normalFormulas.length) {
+    result = Math.max(result, ...setValues, ...normalFormulas);
   }
 
   const additiveBonus = matchingEffects.reduce((sum, b) => {
@@ -2578,7 +2619,7 @@ if (!c) {
       }
 
       summary.createEl("div", { text: String(item.quantity) });
-      summary.createEl("div", { text: String(rowWeight) });
+      summary.createEl("div", { text: Number(rowWeight).toFixed(2) });
 
       const content = details.createEl("div");
       content.style.padding = "10px";
@@ -2893,7 +2934,6 @@ if (!c) {
         const entries = groupedActions[type].filter(action => {
           const name = String(action.name ?? action.file?.name ?? "").toLowerCase();
           const notes = String(action.notes ?? action.effect ?? "").toLowerCase();
-          const mode = String(action.mode ?? "").toLowerCase();
           const damageType = String(action.damage_type ?? "").toLowerCase();
           const sourceItem = String(action.source_item_name ?? "").toLowerCase();
 
@@ -2979,16 +3019,6 @@ if (!c) {
             damageTextA = String(action.damage);
           }
 
-          const hitText =
-            String(action.mode ?? "").toLowerCase() === "attack"
-              ? modString(toHitBonus)
-              : "-";
-
-          const hitEl = summaryEl.createEl("div", { text: hitText });
-          hitEl.style.opacity = "0.7";
-          hitEl.style.fontSize = "0.9em";
-          hitEl.style.fontWeight = "400";
-
           const damageEl = summaryEl.createEl("div", { text: damageTextA });
           damageEl.style.opacity = "0.7";
           damageEl.style.fontSize = "0.9em";
@@ -3001,8 +3031,6 @@ if (!c) {
           const infoBlock = card.createEl("div");
 
           addInfoRow(infoBlock, "Type", sectionLabel(type));
-          addInfoRow(infoBlock, "Mode", action.mode ?? "-");
-          addInfoRow(infoBlock, "Shape", action.shape ?? "-");
 
           if (action.source_item_name) {
             addInfoRow(infoBlock, "From", action.source_item_name);
@@ -3032,9 +3060,6 @@ if (!c) {
           }
 
           if (action.save_ability) addInfoRow(infoBlock, "Save", String(action.save_ability).toUpperCase());
-          if (action.resource_cost != null) addInfoRow(infoBlock, "Resource Cost", action.resource_cost);
-          if (action.requires_los != null) addInfoRow(infoBlock, "Requires LoS", action.requires_los ? "Ja" : "Nein");
-          if (action.friendly_fire != null) addInfoRow(infoBlock, "Friendly Fire", action.friendly_fire ? "Ja" : "Nein");
           if (action.condition != null) addInfoRow(infoBlock, "Condition", action.condition);
           if (action.requires != null) addInfoRow(infoBlock, "Requires", action.requires);
           if (action.resource != null) addInfoRow(infoBlock, "Resource", action.resource);
@@ -3368,7 +3393,7 @@ if (!c) {
           addInfoRow(infoBlock, "Casting Time", spell.casting_time ?? spell.action_type ?? "-");
           addInfoRow(infoBlock, "Range", spell.range ?? "-");
           addInfoRow(infoBlock, "Duration", spell.duration ?? "-");
-          addInfoRow(infoBlock, "Concentration", spell.concentration ? "Ja" : "Nein");
+          addInfoRow(infoBlock, "Concentration", spell.concentration ? "Yes" : "No");
 
           if (spell.uses_attack_roll) {
             addInfoRow(infoBlock, "To Hit", modString(spellAttackBonus));

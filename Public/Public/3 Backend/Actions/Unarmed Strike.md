@@ -4,7 +4,7 @@ category: action
 action_type: action
 mode: attack
 shape: melee_single
-range: 1
+range: 5
 targets: 1
 attacks: 2
 dice_count: 1
