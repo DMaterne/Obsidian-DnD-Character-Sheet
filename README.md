@@ -2,12 +2,6 @@
 
 An interactive D&D 5e character sheet built entirely inside **Obsidian** using Markdown, YAML and DataviewJS.
 
-https://github.com/DMaterne/Obsidian-DnD-Character-Sheet/Public/Public/1 Assets/Videos/OCS_v2.0.0.mp4
-
-
-
-
-
 ## Requirements
 
 ### Dataview — Required
@@ -131,7 +125,7 @@ Changes such as HP, used Spell Slots, equipped items and attuned items can be ma
 
 The system is designed around simple Markdown and YAML files, so new items, spells, actions and features can easily be added or modified.
 
-The included **EIMER** character can be used as an example when creating your own character.
+The included **New Character** can be used as an example when creating your own character.
 
 > **Note:** This project is still under development. Some features or file structures may change in future versions.
 
