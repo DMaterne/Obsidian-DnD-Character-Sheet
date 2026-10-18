@@ -15,10 +15,16 @@ function directCharacterFiles() {
 
 const characterFiles = directCharacterFiles();
 
-// Store the selected character in the SHEET note itself.
-// This is persistent and Dataview automatically re-evaluates when frontmatter changes.
+// Store the selection locally, without changing this note's YAML frontmatter.
+// Separate keys per vault and per sheet note avoid selection collisions.
 const sheetPage = dv.current();
-const savedCharacterPath = String(sheetPage?.selected_character ?? "").trim();
+const storageKey = `dnd-character-sheet:selected:${app.vault.getName()}:${sheetPage?.file?.path ?? "Character Sheet"}`;
+let savedCharacterPath = "";
+try {
+  savedCharacterPath = String(window.localStorage.getItem(storageKey) ?? "").trim();
+} catch (error) {
+  console.warn("Character selection could not be read from local storage:", error);
+}
 
 let CHARACTER_PATH = characterFiles.some(file => file.path === savedCharacterPath)
   ? savedCharacterPath
@@ -1003,6 +1009,47 @@ function normalizedProfKey(value) {
   return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "_");
 }
 
+// Weapon proficiency is a character property, not a weapon-action default.
+// Supports simple/martial category grants and named weapon grants.
+function isWeaponProficient(itemPage, action = null) {
+  if (!itemPage) return false;
+  const profs = new Set(
+    [...getAllProficienciesByCategory().weapons].map(normalizedProfKey)
+  );
+  const hasAny = (...keys) => keys.some(key => profs.has(normalizedProfKey(key)));
+  if (hasAny("all", "all_weapons", "all weapons", "weapons")) return true;
+
+  const category = normalizedProfKey(
+    action?.weapon_category ?? itemPage.weapon_category ?? itemPage.weapon_type ?? itemPage.category ?? ""
+  );
+  if (["simple", "simple_weapon", "simple_weapons"].includes(category) &&
+      hasAny("simple", "simple_weapons", "simple weapons", "simple_weapon")) return true;
+  if (["martial", "martial_weapon", "martial_weapons"].includes(category) &&
+      hasAny("martial", "martial_weapons", "martial weapons", "martial_weapon")) return true;
+
+  const rawNames = [itemPage.name, itemPage.file?.name, action?.weapon_name];
+  for (const raw of rawNames) {
+    const name = normalizedProfKey(raw);
+    if (!name) continue;
+    // A magic weapon can still use a specific proficiency (Longsword +2 => Longsword).
+    const baseName = name.replace(/(?:_?\+\d+)$/, "").replace(/_+$/, "");
+    if (hasAny(name, baseName, `${name}s`, `${baseName}s`)) return true;
+  }
+  return false;
+}
+
+function isAttackActionWeaponProficient(action) {
+  // Only item actions from weapons use the equipment/character proficiency check.
+  // Non-weapon actions retain their explicit proficiency behavior for compatibility.
+  if (action?.source_type !== "item") return action?.proficient ?? true;
+  const itemPage = action.source_item_path ? dv.page(action.source_item_path) : null;
+  const itemType = normalizedProfKey(itemPage?.type);
+  const weaponCategory = action?.weapon_category ?? itemPage?.weapon_category ?? itemPage?.weapon_type;
+  const isWeapon = itemType === "weapon" || itemType.endsWith("_weapon") || weaponCategory != null;
+  if (!isWeapon) return action?.proficient ?? true;
+  return isWeaponProficient(itemPage, action);
+}
+
 function getBackgroundPage() {
   const raw = String(c.background ?? "").trim();
   if (!raw) return null;
@@ -1659,25 +1706,33 @@ if (!c) {
     const selectedPath = String(characterSelect.value ?? "").trim();
     if (!selectedPath || selectedPath === CHARACTER_PATH) return;
 
-    const sheetFile = app.workspace.getActiveFile();
-    if (!sheetFile) {
-      new Notice("Sheet-Datei konnte nicht ermittelt werden.");
-      return;
-    }
-
     characterSelect.disabled = true;
     try {
-      // Persist the selection in this sheet's frontmatter. Dataview watches
-      // metadata changes and will re-evaluate this block with the new path.
-      await app.fileManager.processFrontMatter(sheetFile, fm => {
-        fm.selected_character = selectedPath;
-      });
-
+      window.localStorage.setItem(storageKey, selectedPath);
       CHARACTER_PATH = selectedPath;
-
-      // Explicit refresh as an immediate fallback in addition to Dataview's
-      // metadata watcher.
-      app.workspace.trigger("dataview:refresh-views");
+      // Dataview caches the current dv.page() result until this whole block
+      // executes again. A refresh event alone may not re-run unchanged notes.
+      // Reload only the markdown leaf containing this select. This forces
+      // the DataviewJS block to execute with the newly persisted selection.
+      const sheetPath = String(sheetPage?.file?.path ?? "");
+      const owningLeaf = app.workspace.getLeavesOfType("markdown").find(leaf =>
+        leaf.view?.file?.path === sheetPath &&
+        leaf.view?.containerEl?.contains(characterSelect)
+      );
+      if (owningLeaf) {
+        const previousState = owningLeaf.getViewState();
+        await owningLeaf.setViewState({ type: "empty", active: false });
+        await owningLeaf.setViewState(previousState, { active: false });
+      } else {
+        // Fallback if the DOM lives in a popout or the leaf cannot be found.
+        app.workspace.trigger("dataview:refresh-views");
+        const command = app.commands?.commands?.["dataview:force-refresh-views"];
+        if (command) app.commands.executeCommandById("dataview:force-refresh-views");
+      }
+    } catch (error) {
+      console.error("Character selection could not be saved:", error);
+      new Notice("Charakterauswahl konnte nicht lokal gespeichert werden.");
+      characterSelect.value = CHARACTER_PATH;
     } finally {
       characterSelect.disabled = false;
     }
@@ -3002,8 +3057,8 @@ if (!c) {
           const attackStat = action.attack_stat ?? action.damage_bonus_stat ?? "str";
           const attackMod = getAbilityModForAction(attackStat);
           const profBonus = getProficiencyBonus();
-          const isProficient = action.proficient ?? true;
-          const toHitBonus = attackMod + (isProficient ? profBonus : 0);
+          const isProficient = isAttackActionWeaponProficient(action);
+          const toHitBonus = attackMod + (isProficient ? profBonus : 0) + (Number(action.hit_bonus ?? 0) || 0);
 
           let damageTextA = "-";
           if (action.dice_count && action.dice_size) {
@@ -3019,10 +3074,19 @@ if (!c) {
             damageTextA = String(action.damage);
           }
 
+          // Header columns: Action | Hit (attack roll bonus) | Damage (dice + modifiers).
+          const isAttack = String(action.mode ?? "").trim().toLowerCase() === "attack";
+          const hitEl = summaryEl.createEl("div", {
+            text: isAttack ? modString(toHitBonus) : "-"
+          });
+          hitEl.style.opacity = "0.85";
+          hitEl.style.fontSize = "0.95em";
+          hitEl.style.fontWeight = "600";
+
           const damageEl = summaryEl.createEl("div", { text: damageTextA });
-          damageEl.style.opacity = "0.7";
-          damageEl.style.fontSize = "0.9em";
-          damageEl.style.fontWeight = "400";
+          damageEl.style.opacity = "0.85";
+          damageEl.style.fontSize = "0.95em";
+          damageEl.style.fontWeight = "600";
 
           const card = details.createEl("div");
           card.style.padding = "10px";

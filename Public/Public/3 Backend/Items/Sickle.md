@@ -1,6 +1,7 @@
 ---
 name: Sickle
-type: tool
+type: weapon
+weapon_category: simple
 weight: 2
 equipment: true
 notes: Proficiency with a Sickle allows you to add your proficiency bonus to the attack roll for any attack you make with it.
@@ -19,14 +20,6 @@ actions:
     damage_bonus_stat: dex
     damage_bonus: 0
     damage_type: slashing
-    ranged_attack: false
-    friendly_fire: false
-    requires_los: false
-    utility_type:
-    utility_value: 0
-    utility_formula: 0
-    resource_cost: 0
-    resource_formula: "0"
     notes: Proficiency with a Sickle allows you to add your proficiency bonus to the attack roll for any attack you make with it.
 ---
 # Sickle
