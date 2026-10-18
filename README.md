@@ -2,7 +2,7 @@
 
 An interactive D&D 5e character sheet built entirely inside **Obsidian** using Markdown, YAML and DataviewJS.
 
-
+https://github.com/DMaterne/Obsidian-DnD-Character-Sheet/Public/Public/1 Assets/Videos/OCS_v2.0.0.mp4
 
 ## Requirements
 
