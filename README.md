@@ -2,6 +2,12 @@
 
 An interactive D&D 5e character sheet built entirely inside **Obsidian** using Markdown, YAML and DataviewJS.
 
+
+
+https://github.com/user-attachments/assets/4cbb60a6-ea8d-4ec2-abda-a0046f386d96
+
+
+
 ## Requirements
 
 ### Dataview — Required
