@@ -1,10 +1,10 @@
 ---
 name: New Character
-class: Barbarian
-subclass: Path of the Berserker
+class: ""
+subclass:
 level: 1
 race: Human
-background: Public/3 Backend/Backgrounds/Soldier.md
+background:
 alignment: Lawful Neutral
 player: Dobby
 str: 8
@@ -13,19 +13,19 @@ con: 8
 int: 8
 wis: 8
 cha: 8
-hp_current: 200
-hp_max: 200
+hp_current: 10
+hp_max: 10
 ac: 12
 speed: 30
 passive_perception: 10
 hit_dice: 1d8
 str_save_prof: false
 dex_save_prof: false
-con_save_prof: true
-int_save_prof: true
+con_save_prof: false
+int_save_prof: false
 wis_save_prof: false
 cha_save_prof: false
-acrobatics_prof: true
+acrobatics_prof: false
 animal_handling_prof: false
 arcana_prof: false
 athletics_prof: false
@@ -73,11 +73,12 @@ item_resources:
   used: 0
 asi_choices:
   "4":
-    type: asi
-    ability_1: str
-    ability_2: str
-    feat: ""
-    feat_choices: {}
+    type: feat
+    ability_1: ""
+    ability_2: ""
+    feat: Public/3 Backend/Feats/Athlete.md
+    feat_choices:
+      ability_increase: str
   "8":
     type: asi
     ability_1: dex
@@ -98,16 +99,10 @@ asi_choices:
     ability_1: con
     ability_2: con
     feat: ""
-species: Public/3 Backend/Species/Human.md
-species_choices:
-  extra_language: Common
-class_choices:
-  skills:
-    - athletics
-    - intimidation
-background_choices:
-  tools:
-    - dice_set
+species:
+species_choices: {}
+class_choices: {}
+background_choices: {}
 portrait: Public/1 Assets/Bilder/NPC_Placeholder.png
 known_spells:
   - Public/3 Backend/Spells/Air Bubble.md
@@ -128,4 +123,4 @@ prepared_spells:
 # Notes 
 
 ### Backstory:
-Bonk always bonked foes. Bonk bonkes hard. Bonk bestest bonker in world.
+Write your backstory here. Entries are rendered in markdown, so feel free to use links and hyperlinks here.

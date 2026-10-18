@@ -6,7 +6,6 @@
       {
         "id": "204426477674dd86",
         "type": "tabs",
-        "dimension": 49.96774193548387,
         "children": [
           {
             "id": "b0f0d44e5a629af3",
@@ -20,41 +19,6 @@
               },
               "icon": "lucide-file",
               "title": "Character Sheet"
-            }
-          }
-        ]
-      },
-      {
-        "id": "57a3878f089ad782",
-        "type": "tabs",
-        "dimension": 50.032258064516135,
-        "children": [
-          {
-            "id": "3d94420485cb45b4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Public/3 Backend/Items/Sickle.md",
-                "mode": "source",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "Sickle"
-            }
-          },
-          {
-            "id": "c44d0db061536a18",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Public/3 Backend/Items/Greataxe.md",
-                "mode": "source",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "Greataxe"
             }
           }
         ]
@@ -224,8 +188,12 @@
       "bases:Create new base": false
     }
   },
-  "active": "3d94420485cb45b4",
+  "active": "b0f0d44e5a629af3",
   "lastOpenFiles": [
+    "Public/3 Backend/Characters/New Character.md",
+    "Public/3 Backend/Character Sheet.md",
+    "Public/3 Backend/Character Builder.md",
+    "Public/3 Backend/Items/Sickle.md",
     "Public/3 Backend/Items/Scimitar.md",
     "Public/3 Backend/Items/Light Crossbow.md",
     "Public/3 Backend/Items/Hammer Weapon.md",
@@ -233,9 +201,6 @@
     "Public/3 Backend/Items/Dagger.md",
     "Public/3 Backend/Items/Greataxe.md",
     "Public/3 Backend/Items/Crowbar.md",
-    "Public/3 Backend/Character Builder.md",
-    "Public/3 Backend/Character Sheet.md",
-    "Public/3 Backend/Characters/New Character.md",
     "Public/3 Backend/obsidian_character_sheet_class_system.txt",
     "Public/1 Assets/Bilder/bonk.png",
     "Public/3 Backend/Subclasses/Path of the Berserker.md",
@@ -254,7 +219,6 @@
     "Public/1 Assets/Bilder/Nicht bestätigt 6054.crdownload",
     "Public/3 Backend/Classes/Bard.md",
     "Public/3 Backend/Backgrounds/Acolyte.md",
-    "Public/3 Backend/Features/Persistent Rage.md",
     "Public"
   ]
 }
