@@ -103,7 +103,7 @@ species:
 species_choices: {}
 class_choices: {}
 background_choices: {}
-portrait: Public/1 Assets/Bilder/NPC_Placeholder.png
+portrait: Public/1 Assets/Pictures/NPC_Placeholder.png
 known_spells:
   - Public/3 Backend/Spells/Air Bubble.md
   - Public/3 Backend/Spells/Kinetic Jaunt.md

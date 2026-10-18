@@ -150,7 +150,7 @@ class_choices:
 background_choices:
   tools:
     - dice_set
-portrait: Public/1 Assets/Bilder/bonk.png
+portrait: Public/1 Assets/Pictures/bonk.png
 known_spells:
   - Public/3 Backend/Spells/Air Bubble.md
   - Public/3 Backend/Spells/Kinetic Jaunt.md
