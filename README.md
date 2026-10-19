@@ -50,7 +50,7 @@ The sheet automatically loads the character data, inventory, actions, spells and
 
 Character data is stored in:
 
-`Public/3 Backend/EIMER.md`
+`Public/3 Backend/Characters`
 
 You can either edit this file or create a copy for your own character.
 
@@ -68,19 +68,7 @@ The character file contains the basic character information, including:
 - Attunement
 - Notes and Backstory
 
-### 4. Connect Your Character to the Sheet
-
-At the top of the character sheet, change:
-
-`const CHARACTER_PATH = "Public/3 Backend/Characters/EIMER.md";`
-
-to the path of your own character file.
-
-Example:
-
-`const CHARACTER_PATH = "Public/3 Backend/Characters/MyCharacter.md";`
-
-### 5. Adding Content
+### 4. Adding Content
 
 Additional character content is stored in separate Markdown files in the corresponding folders located in 'Public/3 Backend/'
 
@@ -104,7 +92,7 @@ Items are added through the inventory:
 `    quantity: 1`
 `    equipped: true`
 
-### 6. Using the Character Sheet
+### 5. Using the Character Sheet
 
 Most common values are calculated automatically from the backend data.
 
