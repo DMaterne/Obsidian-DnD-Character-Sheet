@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Public/3 Backend/Characters/New Character.md",
-                "mode": "source",
+                "file": "Public/2 Templates/POI Template.md",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "New Character"
+              "title": "POI Template"
             }
           }
         ]
@@ -188,10 +188,15 @@
       "bases:Create new base": false
     }
   },
-  "active": "b0f0d44e5a629af3",
+  "active": "2616dd5866278542",
   "lastOpenFiles": [
-    "Public/3 Backend/Characters/Bonk.md",
+    "Public/2 Templates/POI Template.md",
+    "Public/2 Templates/Monster Template.md",
+    "Public/2 Templates/NPC Template.md",
+    "Public/2 Templates/Character Sheet Template.md",
     "Public/3 Backend/Character Sheet.md",
+    "Public/3 Backend/Characters/New Character.md",
+    "Public/3 Backend/Characters/Bonk.md",
     "Public/1 Assets/Pictures/NPC_Placeholder.png",
     "Public/1 Assets/Pictures/bonk.png",
     "Public/1 Assets/Pictures",
@@ -201,7 +206,6 @@
     "Public/1 Assets/OCS_v2.0.0.mp4",
     "Public/OCS_v2.0.0.mp4",
     "OCS_v2.0.0.mp4",
-    "Public/3 Backend/Characters/New Character.md",
     "Public/3 Backend/Character Builder.md",
     "Public/3 Backend/Items/Sickle.md",
     "Public/3 Backend/Items/Scimitar.md",
@@ -223,10 +227,7 @@
     "Public/3 Backend/Features/Naturally Stealthy.md",
     "Public/3 Backend/Features/Halfling Nimbleness.md",
     "Public/3 Backend/Features/Feral Instinct.md",
-    "Public/3 Backend/Features/Fighting Style Archery.md",
-    "Public/3 Backend/Classes/Barbarian.md",
     "Public/1 Assets/Bilder/Nicht bestätigt 6054.crdownload",
-    "Public/3 Backend/Classes/Bard.md",
     "Public"
   ]
 }
