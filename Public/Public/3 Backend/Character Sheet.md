@@ -15,8 +15,6 @@ function directCharacterFiles() {
 
 const characterFiles = directCharacterFiles();
 
-// Store the selection locally, without changing this note's YAML frontmatter.
-// Separate keys per vault and per sheet note avoid selection collisions.
 const sheetPage = dv.current();
 const storageKey = `dnd-character-sheet:selected:${app.vault.getName()}:${sheetPage?.file?.path ?? "Character Sheet"}`;
 let savedCharacterPath = "";
@@ -263,8 +261,7 @@ function getClassProgressionValue(key, fallback = null) {
 }
 
 function getMaxSpellSlots() {
-  // 1) Prefer explicit character slots when present. This keeps legacy
-  // characters and manually configured casters fully compatible.
+
   const characterSlots = c.spell_slots;
   if (characterSlots && typeof characterSlots === "object") {
     const normalized = {};
@@ -277,8 +274,8 @@ function getMaxSpellSlots() {
     if (hasPositiveSlot) return normalized;
   }
 
-  // 2) Read either backend layout used by our class files:
-  //    levels[level] or progression[level].
+  // Read either backend layout used by our class files:
+  // levels[level] or progression[level].
   const classPage = getClassPage();
   const levelKey = String(Math.max(1, Number(c.level ?? 1)));
   const levelData =
@@ -289,9 +286,7 @@ function getMaxSpellSlots() {
   const classSlots = levelData?.spell_slots;
   if (classSlots && typeof classSlots === "object") return classSlots;
 
-  // 3) Artificer 2014/Eberron half-caster progression. The current rebuilt
-  // Artificer backend contains progression data but no spell_slots entries,
-  // so without this fallback the UI calculates zero slots and renders no boxes.
+  // Gerade auf artificer und half caster
   if (String(classPage?.name ?? c.class ?? "").trim().toLowerCase() === "artificer") {
     const ARTIFICER_SLOTS = {
       1:[2,0,0,0,0],  2:[2,0,0,0,0],
@@ -361,12 +356,11 @@ function getSubclassPage() {
   });
 
   // Prefer the path declared by the class. This prevents accidentally loading
-  // a subclass that does not belong to the selected class.
   if (matchingOption?.file) {
     return resolvePageRef(matchingOption.file, SUBCLASSES_FOLDER);
   }
 
-  // Backward-compatible fallback for classes that do not yet declare options.
+  // Backward-compatible fallback for classes 
   if (options.length === 0) {
     return resolvePageRef(subclassName, SUBCLASSES_FOLDER);
   }
@@ -462,8 +456,7 @@ function getSpeciesSpeed() {
 }
 
 function getActiveAsiChoiceEntries() {
-  // IMPORTANT: read the raw stored choices here. Calling getActiveAsiChoices()
-  // from this function would recurse indefinitely.
+  // IMPORTANT: read the raw stored choices here. Calling getActiveAsiChoices from this function would recurse indefinitely.
   const choices = c.asi_choices && typeof c.asi_choices === "object"
     ? c.asi_choices
     : {};
@@ -474,7 +467,6 @@ function getActiveAsiChoiceEntries() {
     const unlockLevel = Number(levelKey);
 
     // Numeric keys are ASI unlock levels ("4", "8", ...).
-    // Non-numeric legacy keys remain active for backward compatibility.
     return !Number.isFinite(unlockLevel) || unlockLevel <= level;
   });
 }
@@ -492,8 +484,7 @@ function getAllCharacterFeatures() {
   const seenPaths = new Set();
   const features = [];
 
-  // Every source only grants references. The actual mechanics live in
-  // Public/3 Backend/Features/. Missing files are ignored safely.
+  // Every source only grants references. The actual mechanics live in Public/3 Backend/Features/. Missing files are ignored safely.
   const allFeatureRefs = [
     ...manualFeatureRefs,
     ...classFeatureRefs,
@@ -512,9 +503,6 @@ function getAllCharacterFeatures() {
     features.push(page);
   }
 
-  // Feats selected through ASI choices are also Features for display,
-  // bonuses and resources. They stay in the Feats folder; no duplication
-  // in c.features is required.
   const asiChoices = getActiveAsiChoices();
 
   for (const choice of asiChoices) {
@@ -607,7 +595,7 @@ function hasFeatProficiency(category, value) {
 }
 
 
-// A shield is not armor for the Unarmored Defense condition.
+// Armor modification (wegen shield, unarmored dfense etc.)
 function characterIsWearingArmor() {
   for (const entry of (Array.isArray(c.inventory) ? c.inventory : [])) {
     if (entry?.equipped !== true) continue;
@@ -620,7 +608,6 @@ function characterIsWearingArmor() {
       /\bshield\b/i.test(String(page.name ?? page.file?.name ?? ""));
     if (isShield) continue;
     if (tokens.some(x => /\b(light armor|medium armor|heavy armor|armor)\b/.test(x))) return true;
-    // Explicit armor-class entries are also recognizable when type is unspecified.
     if (page.armor_class != null || page.armor_base != null) return true;
   }
   return false;
@@ -835,8 +822,8 @@ function applyItemEffects(baseValue, type) {
   const baseFormulas = targetType === "ac"
     ? matchingEffects.filter(b => b.calculation === "base" && b.formula)
     : [];
-  // AC base alternatives use *final* ability modifiers, including ASI, species and items.
-  // For example: 10 + dex_mod + con_mod, optionally combined with shield bonuses.
+  // AC base alternatives use *final* ability modifiers, including ASI, species and items
+  // For example: 10 + dex_mod + con_mod, optionally combined with shield bonus
   const formulaContext = targetType === "ac" ? {
     ...getFormulaContext(),
     ...Object.fromEntries(["str","dex","con","int","wis","cha"].flatMap(k =>
@@ -848,7 +835,7 @@ function applyItemEffects(baseValue, type) {
   const normalFormulas = matchingEffects.filter(b => b.formula && b.calculation !== "base")
     .map(b => evaluate(b.formula)).filter(v => v != null && Number.isFinite(v));
   if (targetType === "ac" && baseCandidates.length) {
-    // A base formula replaces the stored raw AC when its condition is met.
+    // A base formula replaces the stored raw AC when its condition is met
     result = Math.max(...baseCandidates);
   } else if (setValues.length || normalFormulas.length) {
     result = Math.max(result, ...setValues, ...normalFormulas);
@@ -866,8 +853,8 @@ function getAsiAbilityBonus(key) {
   const choices = getActiveAsiChoices();
   let total = 0;
 
-  // Only ordinary ASI selections belong here.
-  // Feat ability bonuses are already collected by getActiveBonusEffects().
+  // Only ordinary ASI selections belong here
+  // Feat ability bonuses are already collected by getActiveBonusEffects()
   for (const choice of choices) {
     if (!choice || String(choice.type ?? "asi").trim().toLowerCase() !== "asi") continue;
     if (String(choice.ability_1 ?? "").trim().toLowerCase() === key) total += 1;
@@ -896,8 +883,7 @@ function getAbilityModByName(name) {
 function getProficiencyBonus() {
   // D&D 5e proficiency bonus is determined by total character level:
   // 1-4 +2, 5-8 +3, 9-12 +4, 13-16 +5, 17-20 +6.
-  // Do not depend on a class backend field here; older/newer backends use
-  // different progression layouts and that previously caused stale +2 values.
+  // Do not depend on a class backend field here; older/newer backends use different progression layouts and that previously caused stale +2 values.
   const level = Math.max(1, Math.min(20, Number(c.level ?? 1)));
   const baseProf = 2 + Math.floor((level - 1) / 4);
   return applyItemEffects(baseProf, "proficiency_bonus");
@@ -982,8 +968,7 @@ function getAllProficienciesByCategory() {
   add("skills", bc.skills); add("tools", bc.tools);
   add("weapons", bc.weapons); add("armor", bc.armor); add("languages", bc.languages);
 
-  // Species choices can use descriptive keys such as skill_proficiency,
-  // tool_proficiency and extra_language.
+  // Species choices can use descriptive keys such as skill_proficiency, tool_proficiency and extra_language.
   const sc = c.species_choices && typeof c.species_choices === "object" ? c.species_choices : {};
   for (const [key, value] of Object.entries(sc)) {
     const k = String(key).toLowerCase();
@@ -1031,7 +1016,6 @@ function isWeaponProficient(itemPage, action = null) {
   for (const raw of rawNames) {
     const name = normalizedProfKey(raw);
     if (!name) continue;
-    // A magic weapon can still use a specific proficiency (Longsword +2 => Longsword).
     const baseName = name.replace(/(?:_?\+\d+)$/, "").replace(/_+$/, "");
     if (hasAny(name, baseName, `${name}s`, `${baseName}s`)) return true;
   }
@@ -1054,15 +1038,13 @@ function getBackgroundPage() {
   const raw = String(c.background ?? "").trim();
   if (!raw) return null;
 
-  // New builder stores a full backend path; legacy characters may only store
-  // a background name such as "Soldier".
+
   return resolvePageRef(raw, BACKGROUNDS_FOLDER);
 }
 
 function getEffectiveSkillProficiencies() {
   const result = new Set();
 
-  // Legacy character booleans remain supported.
   const legacySkills = [
     "acrobatics","animal_handling","arcana","athletics","deception","history",
     "insight","intimidation","investigation","medicine","nature","perception",
@@ -1072,7 +1054,6 @@ function getEffectiveSkillProficiencies() {
     if (c[`${key}_prof`] === true) result.add(key);
   }
 
-  // Choices made in the class builder.
   const classSkills = Array.isArray(c.class_choices?.skills) ? c.class_choices.skills : [];
   for (const skill of classSkills) if (skill) result.add(normalizedProfKey(skill));
 
@@ -1087,8 +1068,7 @@ function getEffectiveSkillProficiencies() {
     ? c.background_choices.skills : [];
   for (const skill of backgroundSkillsChosen) if (skill) result.add(normalizedProfKey(skill));
 
-  // Choices made in the species builder. Species backends may use either one
-  // skill field or several differently named skill choice fields.
+  // Choices made in the species builder. Species backends may use either one skill field or several differently named skill choice fields.
   const speciesChoices = c.species_choices && typeof c.species_choices === "object"
     ? c.species_choices : {};
   for (const [key, raw] of Object.entries(speciesChoices)) {
@@ -1379,7 +1359,6 @@ async function performRest(restType) {
     resetRechargeResourcesInPlace(fm.resources, restType);
     resetRechargeResourcesInPlace(fm.feature_resources, restType);
 
-    // Preferred model: feature defines recharge, character stores only used state.
     if (!fm.resources || typeof fm.resources !== "object" || Array.isArray(fm.resources)) {
       fm.resources = {};
     }
@@ -1408,8 +1387,6 @@ async function performRest(restType) {
     // Reset death saves if these fields are used later.
     if ("death_save_successes" in fm) fm.death_save_successes = 0;
     if ("death_save_failures" in fm) fm.death_save_failures = 0;
-
-    // 2014-style Hit Dice recovery: at least one, up to half the total dice.
     if ("hit_dice_used" in fm) {
       const used = Math.max(0, Number(fm.hit_dice_used ?? 0));
       const recovered = Math.max(1, Math.floor(characterLevel / 2));
@@ -1575,9 +1552,6 @@ function getAllCharacterSpells() {
     });
   }
 
-  // New builder model:
-  // - prepared_spells: leveled spells currently prepared
-  // - known_spells: spell access/selection; cantrips are always usable once selected
   const preparedRefs = toPlainArray(c.prepared_spells);
   const knownRefs = toPlainArray(c.known_spells);
 
@@ -1591,7 +1565,7 @@ function getAllCharacterSpells() {
     addSpellRef(spellRef, "character", "Known Cantrip");
   }
 
-  // Legacy compatibility: old characters may still use `spells`.
+  // Legacy compatibility: old characters may still use `spells`
   const explicitSpellRefs = toPlainArray(c.spells);
   for (const spellRef of explicitSpellRefs) {
     addSpellRef(spellRef, "character", "Character Sheet");
@@ -1710,10 +1684,8 @@ if (!c) {
     try {
       window.localStorage.setItem(storageKey, selectedPath);
       CHARACTER_PATH = selectedPath;
-      // Dataview caches the current dv.page() result until this whole block
-      // executes again. A refresh event alone may not re-run unchanged notes.
-      // Reload only the markdown leaf containing this select. This forces
-      // the DataviewJS block to execute with the newly persisted selection.
+      // Dataview caches the current dv.page() result until this whole block executes again. A refresh event alone may not re-run unchanged notes.
+      // Reload only the markdown leaf containing this select. This forces the DataviewJS block to execute with the newly persisted selection.
       const sheetPath = String(sheetPage?.file?.path ?? "");
       const owningLeaf = app.workspace.getLeavesOfType("markdown").find(leaf =>
         leaf.view?.file?.path === sheetPath &&

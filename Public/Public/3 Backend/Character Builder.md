@@ -427,7 +427,6 @@ function availableSubclassOptions() {
 
   
 
-  // Backward compatibility: also accept explicitly declared class options.
 
   const cfg = getSubclassConfig();
 
@@ -736,9 +735,7 @@ function getAllAsiLevels() {
 
   
 
-  // 2014 fallback schedules, so the builder remains usable even before
-
-  // every class backend has explicit asi_levels.
+  // 2014 fallback schedules
 
   const schedules={
 
@@ -1481,7 +1478,6 @@ function renderBackground() {
 
   
 
-  // Accept both legacy names ("Soldier") and the new file path.
 
   let selected=String(draft.background ?? "");
 

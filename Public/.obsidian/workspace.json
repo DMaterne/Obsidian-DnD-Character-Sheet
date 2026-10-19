@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Public/2 Templates/POI Template.md",
+                "file": "Public/3 Backend/Character Builder.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "POI Template"
+              "title": "Character Builder"
             }
           }
         ]
@@ -188,13 +188,14 @@
       "bases:Create new base": false
     }
   },
-  "active": "2616dd5866278542",
+  "active": "b0f0d44e5a629af3",
   "lastOpenFiles": [
+    "Public/3 Backend/Character Sheet.md",
+    "Public/2 Templates/Session Template.md",
     "Public/2 Templates/POI Template.md",
     "Public/2 Templates/Monster Template.md",
     "Public/2 Templates/NPC Template.md",
     "Public/2 Templates/Character Sheet Template.md",
-    "Public/3 Backend/Character Sheet.md",
     "Public/3 Backend/Characters/New Character.md",
     "Public/3 Backend/Characters/Bonk.md",
     "Public/1 Assets/Pictures/NPC_Placeholder.png",
@@ -226,7 +227,6 @@
     "Public/3 Backend/Features/Relentless Rage.md",
     "Public/3 Backend/Features/Naturally Stealthy.md",
     "Public/3 Backend/Features/Halfling Nimbleness.md",
-    "Public/3 Backend/Features/Feral Instinct.md",
     "Public/1 Assets/Bilder/Nicht bestätigt 6054.crdownload",
     "Public"
   ]
