@@ -346,46 +346,50 @@ function getSelectedSubclassName() {
 }
 
 function getSubclassPage() {
-  const subclassName = getSelectedSubclassName();
-  if (!subclassName) return null;
-
+  const selected = getSelectedSubclassName();
+  if (!selected) return null;
+  const className = String(c.class ?? "").trim().toLowerCase();
   const options = getSubclassOptions();
-  const matchingOption = options.find(option => {
-    if (!option || typeof option !== "object") return false;
-    return String(option.name ?? "").trim().toLowerCase() === subclassName.toLowerCase();
-  });
-
-  // Prefer the path declared by the class. This prevents accidentally loading
-  if (matchingOption?.file) {
-    return resolvePageRef(matchingOption.file, SUBCLASSES_FOLDER);
+  const option = options.find(o =>
+    String(o?.name ?? "").trim().toLowerCase() === selected.toLowerCase());
+  // First resolve the configured path, but only for the correct class.
+  const declared = option?.file ? resolvePageRef(option.file, SUBCLASSES_FOLDER) : null;
+  const belongs = page => {
+    const raw = page?.class ?? page?.parent_class ?? page?.base_class ?? "";
+    return (Array.isArray(raw) ? raw : [raw]).some(v =>
+      String(v ?? "").trim().toLowerCase() === className);
+  };
+  if (declared && belongs(declared)) return declared;
+  // Auto-discover subclass files even when a class has a limited options list.
+  const folder = SUBCLASSES_FOLDER.endsWith("/") ? SUBCLASSES_FOLDER : SUBCLASSES_FOLDER + "/";
+  for (const file of app.vault.getMarkdownFiles()) {
+    if (!file.path.startsWith(folder) || file.path.slice(folder.length).includes("/")) continue;
+    const page = dv.page(file.path);
+    const names = [page?.name, file.basename, file.path];
+    if (belongs(page) && names.some(n => String(n ?? "").trim().toLowerCase() === selected.toLowerCase())) {
+      return page;
+    }
   }
-
-  // Backward-compatible fallback for classes 
-  if (options.length === 0) {
-    return resolvePageRef(subclassName, SUBCLASSES_FOLDER);
-  }
-
-  return null;
+  const fallback = resolvePageRef(selected, SUBCLASSES_FOLDER);
+  return fallback && belongs(fallback) ? fallback : null;
 }
 
 function getSubclassFeatureRefs() {
   const config = getSubclassConfig();
   const subclassPage = getSubclassPage();
   if (!subclassPage) return [];
-
-  const characterLevel = Number(c.level ?? 1);
+  const level = Number(c.level ?? 1);
   const unlockLevel = Number(config?.unlock_level ?? 1);
-  if (characterLevel < unlockLevel) return [];
-
-  const subclassFeatures = Array.isArray(subclassPage.features) ? subclassPage.features : [];
-
-  return subclassFeatures
-    .filter(entry => {
-      if (!entry || typeof entry !== "object") return false;
-      return Number(entry.level ?? unlockLevel) <= characterLevel;
-    })
-    .map(entry => entry.feature)
-    .filter(ref => ref);
+  if (level < unlockLevel) return [];
+  const features = toPlainArray(subclassPage.features);
+  return features.flatMap(entry => {
+    const ref = typeof entry === "string" ? entry : entry?.feature ?? entry?.file ?? entry?.path;
+    if (!ref) return [];
+    const feature = resolvePageRef(ref, FEATURES_FOLDER);
+    // Object-level takes priority, otherwise read the linked feature's own level.
+    const required = Number((typeof entry === "object" ? entry.level : null) ?? feature?.level ?? unlockLevel);
+    return feature && Number.isFinite(required) && level >= Math.max(unlockLevel, required) ? [ref] : [];
+  });
 }
 
 

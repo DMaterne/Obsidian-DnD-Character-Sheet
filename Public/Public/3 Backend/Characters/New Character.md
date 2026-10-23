@@ -1,8 +1,8 @@
 ---
 name: New Character
-class: ""
-subclass:
-level: 1
+class: Bard
+subclass: College of Swords
+level: 10
 race: Human
 background:
 alignment: Lawful Neutral
@@ -101,7 +101,9 @@ asi_choices:
     feat: ""
 species:
 species_choices: {}
-class_choices: {}
+class_choices:
+  skills: []
+  tools: []
 background_choices: {}
 portrait: Public/1 Assets/Pictures/NPC_Placeholder.png
 known_spells:

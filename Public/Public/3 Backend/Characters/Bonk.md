@@ -17,7 +17,6 @@ hp_current: 200
 hp_max: 200
 ac: 12
 speed: 30
-passive_perception: 10
 hit_dice: 1d8
 str_save_prof: false
 dex_save_prof: false
@@ -58,15 +57,12 @@ inventory:
   - item: Public/3 Backend/Items/Crossbow Bolts.md
     quantity: 36
     equipped: true
-  - item: Public/3 Backend/Items/Light Crossbow.md
-    quantity: 1
-    equipped: true
   - item: Public/3 Backend/Items/Hammer Weapon.md
     quantity: 1
     equipped: true
   - item: Public/3 Backend/Items/Sickle.md
     quantity: 1
-    equipped: true
+    equipped: false
   - item: Public/3 Backend/Items/Scale Mail.md
     quantity: 1
     equipped: false
@@ -103,9 +99,7 @@ features:
 hp_temp: 0
 actions:
   - Public/3 Backend/Actions/Opportunity Attack.md
-  - Public/3 Backend/Actions/Sickle.md
   - Public/3 Backend/Actions/Unarmed Strike.md
-  - Public/3 Backend/Actions/Light Crossbow.md
 spellcasting_ability: int
 attuned_items:
 resources:

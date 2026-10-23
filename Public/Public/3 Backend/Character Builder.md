@@ -376,86 +376,36 @@ function getSubclassConfig() {
 }
 
 function availableSubclassOptions() {
-
-  const className = String(draft?.class ?? "").trim().toLowerCase();
-
-  if (!className) return [];
-
-  
-
-  const found = [];
-
-  const seen = new Set();
-
-  
-
-  // Preferred method: discover every subclass file whose frontmatter says
-
-  // `class: <selected class>`.
-
-  for (const file of subclassFiles) {
-
-    const page = pageFor(file);
-
-    if (!page) continue;
-
-  
-
-    const ownerRaw = page.class ?? page.parent_class ?? page.base_class ?? "";
-
-    const owners = Array.isArray(ownerRaw) ? ownerRaw : [ownerRaw];
-
-    const belongs = owners.some(x => String(x ?? "").trim().toLowerCase() === className);
-
-    if (!belongs) continue;
-
-  
-
-    const name = String(page.name ?? file.basename).trim();
-
-    if (!name) continue;
-
-    const key = file.path.toLowerCase();
-
-    if (seen.has(key)) continue;
-
-    seen.add(key);
-
-    found.push({name, file:file.path});
-
-  }
-
-  
-
-
-  const cfg = getSubclassConfig();
-
-  const declared = Array.isArray(cfg?.options) ? cfg.options : [];
-
-  for (const option of declared) {
-
-    if (!option) continue;
-
-    const name = String(option.name ?? option.file ?? "").trim();
-
-    if (!name) continue;
-
-    const path = String(option.file ?? "").trim();
-
-    const key = (path || name).toLowerCase();
-
-    if (seen.has(key)) continue;
-
-    seen.add(key);
-
-    found.push({name, file:path || null});
-
-  }
-
-  
-
-  return found.sort((a,b)=>a.name.localeCompare(b.name,"en"));
-
+  const className = String(draft?.class ?? "").trim().toLowerCase();
+  if (!className) return [];
+  const found = [];
+  const seen = new Set();
+  const add = (name, file) => {
+    const key = String(name ?? "").trim().toLowerCase();
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    found.push({name: String(name).trim(), file: file || null});
+  };
+  // All subclass files for this class, irrespective of class.options.
+  for (const file of subclassFiles) {
+    const page = pageFor(file);
+    const owner = page?.class ?? page?.parent_class ?? page?.base_class ?? "";
+    const owners = Array.isArray(owner) ? owner : [owner];
+    if (owners.some(o => String(o ?? "").trim().toLowerCase() === className))
+      add(page?.name ?? file.basename, file.path);
+  }
+  const declared = getSubclassConfig()?.options;
+  for (const option of Array.isArray(declared) ? declared : []) {
+    const name = typeof option === "string" ? option : option?.name;
+    const path = typeof option === "object" ? option?.file : null;
+    // Avoid presenting obsolete options that have no matching subclass file.
+    const page = path ? builderResolvePage(path, SUBCLASSES_FOLDER) : builderResolvePage(name, SUBCLASSES_FOLDER);
+    const owner = page?.class ?? page?.parent_class ?? page?.base_class ?? "";
+    const owners = Array.isArray(owner) ? owner : [owner];
+    if (page && owners.some(o => String(o ?? "").trim().toLowerCase() === className))
+      add(name ?? page.name, page.file?.path ?? path);
+  }
+  return found.sort((a,b) => a.name.localeCompare(b.name, "en"));
 }
 
 function getSubclassName() {
@@ -522,25 +472,31 @@ function builderFeaturePages() {
   const refs = [...(Array.isArray(draft?.features) ? draft.features : [])];
   const level = Number(draft?.level ?? 1);
   const cp = selectedClassPage();
-  for (const entry of Array.isArray(cp?.features) ? cp.features : [])
-    if (entry && Number(entry.level ?? 1) <= level && entry.feature) refs.push(entry.feature);
-  const config = cp?.subclass;
+  for (const entry of toPlainArray(cp?.features)) {
+    const ref = typeof entry === "string" ? entry : entry?.feature ?? entry?.file ?? entry?.path;
+    const required = Number((typeof entry === "object" ? entry.level : null) ?? 1);
+    if (ref && level >= required) refs.push(ref);
+  }
   const subclassName = getSubclassName().trim();
-  const options = Array.isArray(config?.options) ? config.options : [];
-  const option = options.find(o => String(o?.name ?? "").trim().toLowerCase() === subclassName.toLowerCase());
-  const sp = subclassName && (option?.file || options.length === 0)
-    ? builderResolvePage(option?.file ?? subclassName, SUBCLASSES_FOLDER) : null;
-  const unlockLevel = Number(config?.unlock_level ?? 1);
-  if (level >= unlockLevel)
-    for (const entry of Array.isArray(sp?.features) ? sp.features : [])
-      if (entry && Number(entry.level ?? unlockLevel) <= level && entry.feature) refs.push(entry.feature);
+  const subclass = availableSubclassOptions().find(o => o.name.toLowerCase() === subclassName.toLowerCase());
+  const sp = subclass ? builderResolvePage(subclass.file ?? subclass.name, SUBCLASSES_FOLDER) : null;
+  const unlockLevel = Number(cp?.subclass?.unlock_level ?? 1);
+  if (sp && level >= unlockLevel) {
+    for (const entry of toPlainArray(sp.features)) {
+      const ref = typeof entry === "string" ? entry : entry?.feature ?? entry?.file ?? entry?.path;
+      if (!ref) continue;
+      const feature = builderResolvePage(ref, "Public/3 Backend/Features/");
+      const required = Number((typeof entry === "object" ? entry.level : null) ?? feature?.level ?? unlockLevel);
+      if (feature && Number.isFinite(required) && level >= Math.max(unlockLevel, required)) refs.push(ref);
+    }
+  }
   const species = builderResolvePage(draft?.species, SPECIES_FOLDER);
-  for (const entry of Array.isArray(species?.features) ? species.features : []) {
+  for (const entry of toPlainArray(species?.features)) {
     const ref = typeof entry === "string" ? entry : entry?.feature ?? entry?.file ?? entry?.path;
     if (ref) refs.push(ref);
   }
   const pages = [], seen = new Set();
-  const pushPage = (page) => {
+  const pushPage = page => {
     const path = String(page?.file?.path ?? "");
     if (page && path && !seen.has(path)) { seen.add(path); pages.push(page); }
   };
